@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-03-19T02:38:08.159Z</updated>
+  <updated>2020-03-19T10:10:48.164Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Leduk规则说明</title>
+    <link href="http://yoursite.com/2020/03/19/Leduk%E8%A7%84%E5%88%99%E4%BB%8B%E7%BB%8D/"/>
+    <id>http://yoursite.com/2020/03/19/Leduk%E8%A7%84%E5%88%99%E4%BB%8B%E7%BB%8D/</id>
+    <published>2020-03-19T10:10:29.000Z</published>
+    <updated>2020-03-19T10:10:48.164Z</updated>
+    
+    <content type="html"><![CDATA[<p>Leduc Hold’em is a toy poker game sometimes used in academic research(first introduced in <a href="http://poker.cs.ualberta.ca/publications/UAI05.pdf" target="_blank" rel="noopener">Bayes’ Bluff: Opponent Modeling in Poker</a>). </p><p>简单来说，Leduk就是简化的德州扑克游戏。他的全称是heads-up no-limit Leduk，即单挑无限注扑克游戏。 </p><a id="more"></a><p>It is played with a deck of six cards, comprising two suits of three ranks each (often the king, queen, and jack - in our implementation, the ace, king, and queen). The game begins with each player being dealt one card privately, followed by a betting round. Then, another card is dealt faceup as a community (or board) card, and there is another betting round. Finally, the players reveal their private cards. If one player’s private card is the same rank as the board card, he or she wins the game; otherwise, the player whose private card has the higher rank wins.</p><p>这个游戏经常用于学术研究中，一副牌有六张：有两套三个等级的卡片：国王、王后和杰克。游戏开始后，每个玩家会获得一张私牌，然后进行一轮下注。之后，再讲另一张牌作为公牌放在桌面上，进行另一轮下注。最后，玩家展示他们的私牌，若一个玩家的私牌和公牌相同，他（她）获胜（因为每种牌只有两张，这里就不会平局）；否则，私牌牌面更高的玩家获胜。</p><p>The game that we implement is No-Limit Leduc Hold’em, meaning that whenever a player makes a bet, he or she may wager any amount of chips up to a maximum of that player’s remaining stack. There is also no limit on the number of bets and raises that can be made in each betting round.</p><p>这个游戏是无限注德州扑克，这意味着每当玩家下注时，他或她都可以下注任何数量的筹码，直到该玩家剩余筹码的最大值。 每一轮下注和加注的次数也没有限制。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Leduc Hold’em is a toy poker game sometimes used in academic research(first introduced in &lt;a href=&quot;http://poker.cs.ualberta.ca/publications/UAI05.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Bayes’ Bluff: Opponent Modeling in Poker&lt;/a&gt;). &lt;/p&gt;
+&lt;p&gt;简单来说，Leduk就是简化的德州扑克游戏。他的全称是heads-up no-limit Leduk，即单挑无限注扑克游戏。 &lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="德州扑克" scheme="http://yoursite.com/categories/%E5%BE%B7%E5%B7%9E%E6%89%91%E5%85%8B/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>Hello World</title>
@@ -31,26 +53,6 @@
       
         &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
       
-    
-    </summary>
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Leduk规则说明</title>
-    <link href="http://yoursite.com/2020/03/19/Leduk%E8%A7%84%E5%88%99%E4%BB%8B%E7%BB%8D/"/>
-    <id>http://yoursite.com/2020/03/19/Leduk%E8%A7%84%E5%88%99%E4%BB%8B%E7%BB%8D/</id>
-    <published>2020-03-19T02:38:08.159Z</published>
-    <updated>2020-03-19T10:05:24.114Z</updated>
-    
-    <content type="html"><![CDATA[<p>Leduc Hold’em is a toy poker game sometimes used in academic research(first introduced in <a href="http://poker.cs.ualberta.ca/publications/UAI05.pdf" target="_blank" rel="noopener">Bayes’ Bluff: Opponent Modeling in Poker</a>). </p><p>简单来说，Leduk就是简化的德州扑克游戏。他的全称是heads-up no-limit Leduk，即单挑无限注扑克游戏。 </p><a id="more"></a><p>It is played with a deck of six cards, comprising two suits of three ranks each (often the king, queen, and jack - in our implementation, the ace, king, and queen). The game begins with each player being dealt one card privately, followed by a betting round. Then, another card is dealt faceup as a community (or board) card, and there is another betting round. Finally, the players reveal their private cards. If one player’s private card is the same rank as the board card, he or she wins the game; otherwise, the player whose private card has the higher rank wins.</p><p>这个游戏经常用于学术研究中，一副牌有六张：有两套三个等级的卡片：国王、王后和杰克。游戏开始后，每个玩家会获得一张私牌，然后进行一轮下注。之后，再讲另一张牌作为公牌放在桌面上，进行另一轮下注。最后，玩家展示他们的私牌，若一个玩家的私牌和公牌相同，他（她）获胜（因为每种牌只有两张，这里就不会平局）；否则，私牌牌面更高的玩家获胜。</p><p>The game that we implement is No-Limit Leduc Hold’em, meaning that whenever a player makes a bet, he or she may wager any amount of chips up to a maximum of that player’s remaining stack. There is also no limit on the number of bets and raises that can be made in each betting round.</p><p>这个游戏是无限注德州扑克，这意味着每当玩家下注时，他或她都可以下注任何数量的筹码，直到该玩家剩余筹码的最大值。 每一轮下注和加注的次数也没有限制。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;Leduc Hold’em is a toy poker game sometimes used in academic research(first introduced in &lt;a href=&quot;http://poker.cs.ualberta.ca/publications/UAI05.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Bayes’ Bluff: Opponent Modeling in Poker&lt;/a&gt;). &lt;/p&gt;
-&lt;p&gt;简单来说，Leduk就是简化的德州扑克游戏。他的全称是heads-up no-limit Leduk，即单挑无限注扑克游戏。 &lt;/p&gt;
     
     </summary>
     
