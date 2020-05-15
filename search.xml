@@ -1,6 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>PCD算法流程</title>
+    <url>/2020/04/18/PCD%E7%AE%97%E6%B3%95%E6%B5%81%E7%A8%8B/</url>
+    <content><![CDATA[<p>title: Beyond the Product: Discovering Image Posts for Brands in Social Media论文与代码解读</p>
+<p>date: 2020-05-07 11:32:29<br>categories: 品牌推广，推荐系统<br>toc: true  </p>
+<p>![image-20200507113351640](/Users/hck/Library/Application Support/typora-user-images/image-20200507113351640.png)</p>
+<p>本篇工作的背景是面向品牌方，目标是在社交平台中挖掘出合适的UGC内容（就是用户在社交平台上发布的posts），这类内容要符合品牌商的品牌理念（或者包含相关的内容）。</p>
+<p>![image-20200507113314084](/Users/hck/Library/Application Support/typora-user-images/image-20200507113314084.png)</p>
+<h4 id="论文部分："><a href="#论文部分：" class="headerlink" title="论文部分："></a>论文部分：</h4><p>1.数据集：是从Instagram上爬取的900个左右的品牌最近发布的1000个左右的posts，图片或者是视频，视频主要通过抽帧（一个视频好像是抽三帧）来构造的。</p>
+<p>2.模型部分：模型部分并不复杂，右边是图片的输入，图片分为正样本和负样本，左边是品牌表示学习brand representation learning, 就是用nn.Embedding把brand_id升维然后构造一个矩阵A，然后通过一系列的复制，维度对齐操作，得到一个与右边图片可以做矩阵乘法的表示，然后用一个MarginRankingLoss来约束distance(品牌表示，正样本)&lt;distance(品牌表示， 负样本)。</p>
+<h4 id="代码部分"><a href="#代码部分" class="headerlink" title="代码部分"></a>代码部分</h4><p>一.特征提取</p>
+<p>这里我是更换了一个汽车品牌的细粒度数据集：    </p>
+<p>先单独运行extract_visual_feature.py文件，用vgg16_bn去提取品牌数据集的图片特征，（这里为了对比实验）之后换成了vgg19_bn，其他网络结构同理，只要求图片特征维度最后出来是4096。最后会拿到一个特征矩阵feature_matrix（98169 x 4096）第一个是汽车数据集的样本数，第二维是图片特征。存成npy文件。</p>
+<p>然后这里需要挑选出正样本和负样本的pair:</p>
+<p>we randomly sampled ten negative sample posts.</p>
+<p>原论文中是一个正样本，去提取10个负样本。</p>
+<p>这类我们增加了负样本的量，性能会有所提高</p>
+<p>二.训练</p>
+<p>train.py</p>
+<p>主要看train这个函数：</p>
+<p>先看使用的损失函数是Margin_ranking_loss:</p>
+<p>torch.nn.MarginRankingLoss(margin=0.0, reduction=’mean’) </p>
+<p>对于 mini-batch 中每个实例的损失函数如下:</p>
+<p><img src="https://img-blog.csdnimg.cn/20181230222507854.png" alt="在这里插入图片描述"></p>
+<p>y是标签， x1正样本，x2负样本：</p>
+<p>loss = loss_function(out_pos, out_neg, ones)</p>
+<p>out_pos  图像输出的正样本特征</p>
+<p>out_neg 图像输出的负样本特征</p>
+<p>ones  是硬标签</p>
+<p>ones = torch.ones(image_pos.size()[0], 1)</p>
+<p>[256(batch_size),1]</p>
+<p>这里margin是超参数，取了0.3</p>
+<p>![image-20200418101709713](/Users/hck/Library/Application Support/typora-user-images/image-20200418101709713.png)</p>
+<p>官方文档写的很清楚了 取1的情况就是希望这两个样本之间的距离越大越好。</p>
+<p>三.模型</p>
+<p>模型这部分有点复杂</p>
+<p>先看VggModel()</p>
+<p>我们把他给打印出来：</p>
+<p>![image-20200418102904409](/Users/hck/Library/Application Support/typora-user-images/image-20200418102904409.png)</p>
+<p> out_pos = model({‘image’: image_pos, ‘brand’: brand})</p>
+<p> out_neg = model({‘image’: image_neg, ‘brand’: brand})</p>
+<p>注意这个模型的输入有两个：</p>
+<p>一个是图像的特征输入，一个是品牌的index（0…50）</p>
+<p>然后我们看VggModel的forward()函数</p>
+<p>先是简单的两层MLP 把图像特征4096-&gt;4096-&gt;1024中间使用leaky relu连接的</p>
+<p>然后我们看输入的品牌index:</p>
+<p>self.brand_embeddings = nn.Embedding(num_brands, self.num_aspects)</p>
+<p>nn.Embedding这个函数其实就是生成词向量用的：</p>
+<p>第一个维度是词的个数，第二个参数是生成词向量的维度</p>
+<p>这里j就是这届把品牌id(index形式)输入进去了：</p>
+<p>brand_weights = self.brand_embeddings(data[‘brand’])</p>
+<p>所以这里输出的weights输出就是2000维的品牌表示：</p>
+<p>L1Penalty.apply(brand_weights)这里加了一个L1惩罚</p>
+<p>目的是为了实现稀疏性（使中间层一定比例的系数为0）</p>
+<p>接下来就是最关键的代码了：</p>
+<p>w_aspects = torch.mul(brand_weights.view(im_ft.shape[0], self.num_aspects, 1).expand(im_ft.shape[0], self.num_aspects, im_ft.shape[1]), self.aspects_embeddings.view(1, self.num_aspects, im_ft.shape[1]).expand(im_ft.shape[0], self.num_aspects, im_ft.shape[1]))   </p>
+<p>一点点分析：</p>
+<p>brand_weights.view(im_ft.shape[0], self.num_aspects, 1)</p>
+<p>brand_weight输出是2000维度</p>
+<p>im_ft.shape[0] 是batchsize</p>
+<p>就是展成[256,2000,1]的格式</p>
+<p>.expand(im_ft.shape[0], self.num_aspects, im_ft.shape[1])</p>
+<p>[256,2000,1024]</p>
+<p>就是复制</p>
+<p>[256,2000,1]</p>
+<p>[256,2000,1024]</p>
+<p>看第二项</p>
+<p>self.aspects_embeddings.view(1, self.num_aspects, im_ft.shape[1]).expand(im_ft.shape[0], self.num_aspects, im_ft.shape[1]))</p>
+<p>首先：</p>
+<p> self.aspects_embeddings = nn.Parameter(torch.randn(self.num_aspects, self.embedding_size), requires_grad=True)</p>
+<p>nn.Parameter这玩意就是把不可训练的Tensor弄成可训练的，并绑定到module里</p>
+<p>[2000, 1024]</p>
+<p>一样的操作：</p>
+<p>[1,2000,1024] -&gt; [256,2000,1024]</p>
+<p>torch.mul 逐元素点乘</p>
+<p>结果[256,2000,1024]</p>
+<p>最后  </p>
+<p>prod = torch.bmm(w_aspects, im_ft.view(im_ft.shape[0], im_ft.shape[1], 1))</p>
+<p>[256,2000,1024]    [256,1024,1]</p>
+<p>bmm操作：</p>
+<p>tensor a 的size为(a,b,c),tensor b的size为(a,c,d).</p>
+<p>结果为(a,b,d)</p>
+<p>[256,2000,1]</p>
+<p>prod dropout之后 就是一个mean均值变成1维度</p>
+<p>然后通过margin_ranking_loss训练</p>
+<p>![image-20200418232705723](/Users/hck/Library/Application Support/typora-user-images/image-20200418232705723.png)</p>
+<p>最后就走完了这个流程：</p>
+<p>实际把A的计算换成一个标准的全连接层加上relu似乎不影响在我数据集上的性能。</p>
+]]></content>
+  </entry>
+  <entry>
     <title>Leduk规则说明</title>
     <url>/2020/03/19/Leduk%E8%A7%84%E5%88%99%E4%BB%8B%E7%BB%8D/</url>
     <content><![CDATA[<p>Leduc Hold’em is a toy poker game sometimes used in academic research(first introduced in <a href="http://poker.cs.ualberta.ca/publications/UAI05.pdf" target="_blank" rel="noopener">Bayes’ Bluff: Opponent Modeling in Poker</a>). </p>
