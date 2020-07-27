@@ -104,14 +104,14 @@
 <meta property="og:url" content="http://yoursite.com/2020/07/27/Conversational%20Recommender%20Systems%E7%BB%BC%E8%BF%B0/index.html">
 <meta property="og:site_name" content="Chengkai&#39;s Blog">
 <meta property="og:description" content="近年来，推荐系统的各项子课题接连出现，而对话式的推荐系统也成为了一个新兴的子课题。In recent years, the emerging topics of recommender systems that take advantage of natural language processing techniques have attracted much attention, and o">
-<meta property="og:image" content="https://vanchengkai.github.io/images/15958542953009.png">
-<meta property="og:image" content="https://vanchengkai.github.io/images/15958542216380.png">
-<meta property="og:image" content="https://vanchengkai.github.io/images/15958546812312.png">
+<meta property="og:image" content="https://vanchengkai.github.io/images/15958542953009.jpg">
+<meta property="og:image" content="https://vanchengkai.github.io/images/15958542216380.jpg">
+<meta property="og:image" content="https://vanchengkai.github.io/images/15958546812312.jpg">
 <meta property="article:published_time" content="2020-07-27T13:32:29.000Z">
-<meta property="article:modified_time" content="2020-07-27T14:26:22.222Z">
+<meta property="article:modified_time" content="2020-07-27T14:55:10.174Z">
 <meta property="article:author" content="Chengkai">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://vanchengkai.github.io/images/15958542953009.png">
+<meta name="twitter:image" content="https://vanchengkai.github.io/images/15958542953009.jpg">
 
 
 
@@ -465,17 +465,17 @@
       
 
       
-        <p><img src="https://vanchengkai.github.io/images/15958542953009.png" alt="image-15958542953009"></p>
+        <p><img src="https://vanchengkai.github.io/images/15958542953009.jpg" alt="image-15958542953009"></p>
 <p>近年来，推荐系统的各项子课题接连出现，而对话式的推荐系统也成为了一个新兴的子课题。<br>In recent years, the emerging topics of recommender systems that take advantage of natural language processing techniques have attracted much attention, and one of their applications is the Conversational Recommender System (CRS).</p>
 <a id="more"></a>
 
 <h2 id="1-Background-and-Definition"><a href="#1-Background-and-Definition" class="headerlink" title="1.Background and Definition"></a>1.Background and Definition</h2><p>文章对对话式推荐系统进行了定义：Unlike traditional recommender systems with content-based and collaborative filtering approaches, CRS learns and models user’s preferences through interactive dialogue conversations. </p>
 <p>众所周知，两种主流的推荐系统框架是conten-based的基于内容的推荐系统，或者CF协同过滤的推荐系统，CRS主要是通过与客户对话来学习到用户对物品的偏好。而这篇2020年的来自澳洲的综述，主要讨论的是基于DL方法的对话推荐系统。</p>
-<p>对DL-based的对话推荐系统，作者们是这样定义的：Nevertheless, we are seeing a recent trend in the field of CRS, where deep learning approaches are being used to provide end-to-end solutions for CRS, and these systems are considered as Deep Conversational Recommender Systems (DCRS).并给出了如下图的说明过程：<br><img src="https://vanchengkai.github.io/images/15958542216380.png" alt="image-15958542216380"></p>
+<p>对DL-based的对话推荐系统，作者们是这样定义的：Nevertheless, we are seeing a recent trend in the field of CRS, where deep learning approaches are being used to provide end-to-end solutions for CRS, and these systems are considered as Deep Conversational Recommender Systems (DCRS).并给出了如下图的说明过程：<br><img src="https://vanchengkai.github.io/images/15958542216380.jpg" alt="image-15958542216380"></p>
 <p>上图是对话机器人的示例。Here we use the term users to denote the information seekers, and the term agents to denote the information providers：上图的用户是信息的seeker, 而机器人是信息的提供者。</p>
 <p>From the perspective of online businesses, due to the natural and personal characteristics of direct communication via conversations, a large amount of modern services provide call or chat systems to deal with customer support. However, human resources are limited and costly, thus, the need of intelligent agents who are able to converse with users and give satisfactory recommendations is essential to them. 说明推荐在chat systems中的重要性，On the other hand, from the user’s perspective, the ability to freely express one’s preferences and retrieve tailored suggestions from the agents give the users a strong sense of satisfaction and confidence in the choices they make.</p>
 <p>*** —</p>
-<h2 id="2-Main-Components-and-Challenges"><a href="#2-Main-Components-and-Challenges" class="headerlink" title="2.Main Components and Challenges"></a>2.Main Components and Challenges</h2><h3 id="2-1-Components"><a href="#2-1-Components" class="headerlink" title="2.1 Components"></a>2.1 Components</h3><p>以上主要是对背景和研究意义的说明和介绍，然后作者引出了DCRS的主要组件：<br><img src="https://vanchengkai.github.io/images/15958546812312.png" alt="image-15958546812312"></p>
+<h2 id="2-Main-Components-and-Challenges"><a href="#2-Main-Components-and-Challenges" class="headerlink" title="2.Main Components and Challenges"></a>2.Main Components and Challenges</h2><h3 id="2-1-Components"><a href="#2-1-Components" class="headerlink" title="2.1 Components"></a>2.1 Components</h3><p>以上主要是对背景和研究意义的说明和介绍，然后作者引出了DCRS的主要组件：<br><img src="https://vanchengkai.github.io/images/15958546812312.jpg" alt="image-15958546812312"></p>
 <p>这个图非常的清晰： DCRS的组件：In a typical CRS, there exists three components, a User Intention Understanding (UIU) module, a Recommendation (REC) module, and a Switching Mechanism (SWM).<br>典型的对话推荐系统一般包括三个模块：用户意图理解模块UIU、推荐模块REC和选择模块SWM。</p>
 <p>UIU模块用于从用户输入和系统响应中挖掘用户偏好，确定当前的对话状态，这里的用户输入可能是多模态的，如文本、图片等。SWM模块是根据当前的对话状态决定继续问用户问题还是直接根据当前的用户偏好进行推荐。在一些场景中，SWM要同时根据UIU模块和REC模块的信号进行决策。此外，有研究通过引入改进模块IM处理基于用户反馈的推荐。作者将这几个模块中至少有一个模块应用深度学习方法的对话推荐系统称为深度对话推荐系统DCRS。</p>
 <p>DCRS is primarily a goal-oriented dialogue system which also incorporates the element of chit-chat and question answering dialogue systems所以DCRS就是一个集闲聊与问答的对话系统。This natural mode of interaction between users and agents presents considerable challenges when designing such a system. 用户和系统之间的自然交互模式是最大的挑战。</p>

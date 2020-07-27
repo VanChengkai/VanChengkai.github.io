@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-07-27T14:26:22.222Z</updated>
+  <updated>2020-07-27T14:55:10.174Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -21,11 +21,11 @@
     <link href="http://yoursite.com/2020/07/27/Conversational%20Recommender%20Systems%E7%BB%BC%E8%BF%B0/"/>
     <id>http://yoursite.com/2020/07/27/Conversational%20Recommender%20Systems%E7%BB%BC%E8%BF%B0/</id>
     <published>2020-07-27T13:32:29.000Z</published>
-    <updated>2020-07-27T14:26:22.222Z</updated>
+    <updated>2020-07-27T14:55:10.174Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;https://vanchengkai.github.io/images/15958542953009.png&quot; alt=&quot;image-15958542953009&quot;&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;img src=&quot;https://vanchengkai.github.io/images/15958542953009.jpg&quot; alt=&quot;image-15958542953009&quot;&gt;&lt;/p&gt;
 &lt;p&gt;近年来，推荐系统的各项子课题接连出现，而对话式的推荐系统也成为了一个新兴的子课题。&lt;br&gt;In recent years, the emerging topics of recommender systems that take advantage of natural language processing techniques have attracted much attention, and one of their applications is the Conversational Recommender System (CRS).&lt;/p&gt;
     
     </summary>
