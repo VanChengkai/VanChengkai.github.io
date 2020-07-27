@@ -104,14 +104,16 @@
 <meta property="og:url" content="http://yoursite.com/2020/05/07/PCD%E7%AE%97%E6%B3%95%E6%B5%81%E7%A8%8B/index.html">
 <meta property="og:site_name" content="Chengkai&#39;s Blog">
 <meta property="og:description" content="本篇工作的背景是面向品牌方，目标是在社交平台中挖掘出合适的UGC内容（就是用户在社交平台上发布的posts），这类内容要符合品牌商的品牌理念（或者包含相关的内容）。">
-<meta property="og:image" content="http://yoursite.com/2020/05/07/images/image-20200507113351640.png">
-<meta property="og:image" content="http://yoursite.com/2020/05/07/images/image-20200507113314084.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20181230222507854.png">
+<meta property="og:image" content="https://vanchengkai.github.io/images/image-20200507113351640.png">
+<meta property="og:image" content="https://vanchengkai.github.io/images/image-20200507113314084.png">
+<meta property="og:image" content="https://vanchengkai.github.io/images/20181230222507854.png">
+<meta property="og:image" content="https://vanchengkai.github.io/images/image-20200418101709713.png">
+<meta property="og:image" content="http://yoursite.com/https://vanchengkai.github.io/images/image-20200418102904409.png">
 <meta property="article:published_time" content="2020-05-07T03:32:29.000Z">
-<meta property="article:modified_time" content="2020-07-27T08:28:32.923Z">
+<meta property="article:modified_time" content="2020-07-27T14:01:16.298Z">
 <meta property="article:author" content="Chengkai">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2020/05/07/images/image-20200507113351640.png">
+<meta name="twitter:image" content="https://vanchengkai.github.io/images/image-20200507113351640.png">
 
 
 
@@ -465,11 +467,11 @@
       
 
       
-        <p><img src="../images/image-20200507113351640.png" alt="image-20200507113351640"></p>
+        <p><img src="https://vanchengkai.github.io/images/image-20200507113351640.png" alt="image-20200507113351640"></p>
 <p>本篇工作的背景是面向品牌方，目标是在社交平台中挖掘出合适的UGC内容（就是用户在社交平台上发布的posts），这类内容要符合品牌商的品牌理念（或者包含相关的内容）。</p>
 <a id="more"></a>
 
-<p><img src="../images/image-20200507113314084.png" alt="image-20200507113314084"></p>
+<p><img src="https://vanchengkai.github.io/images/image-20200507113314084.png" alt="image-20200507113314084"></p>
 <h4 id="论文部分："><a href="#论文部分：" class="headerlink" title="论文部分："></a>论文部分：</h4><p>1.数据集：是从Instagram上爬取的900个左右的品牌最近发布的1000个左右的posts，图片或者是视频，视频主要通过抽帧（一个视频好像是抽三帧）来构造的。</p>
 <p>2.模型部分：模型部分并不复杂，右边是图片的输入，图片分为正样本和负样本，左边是品牌表示学习brand representation learning, 就是用nn.Embedding把brand_id升维然后构造一个矩阵A，然后通过一系列的复制，维度对齐操作，得到一个与右边图片可以做矩阵乘法的表示，然后用一个MarginRankingLoss来约束distance(品牌表示，正样本)&lt;distance(品牌表示， 负样本)。</p>
 <h4 id="代码部分"><a href="#代码部分" class="headerlink" title="代码部分"></a>代码部分</h4><p>主要是自己做一个总结，写的比较乱。</p>
@@ -486,7 +488,7 @@
 <p>先看使用的损失函数是Margin_ranking_loss:</p>
 <p>torch.nn.MarginRankingLoss(margin=0.0, reduction=’mean’) </p>
 <p>对于 mini-batch 中每个实例的损失函数如下:</p>
-<p><img src="https://img-blog.csdnimg.cn/20181230222507854.png" alt="在这里插入图片描述"></p>
+<p><img src="https://vanchengkai.github.io/images/20181230222507854.png" alt="在这里插入图片描述"></p>
 <p>y是标签， x1正样本，x2负样本：</p>
 <p>loss = loss_function(out_pos, out_neg, ones)</p>
 <p>out_pos  图像输出的正样本特征</p>
@@ -496,13 +498,13 @@
 
 <p>[256(batch_size),1]</p>
 <p>这里margin是超参数，取了0.3</p>
-<p>![image-20200418101709713](/Users/hck/Library/Application Support/typora-user-images/image-20200418101709713.png)</p>
+<p><img src="https://vanchengkai.github.io/images/image-20200418101709713.png" alt="image-20200418101709713"></p>
 <p>官方文档写的很清楚了 取1的情况就是希望这两个样本之间的距离越大越好。</p>
 <p>三.模型</p>
 <p>模型这部分有点复杂</p>
 <p>先看VggModel()</p>
 <p>我们把他给打印出来：</p>
-<p>![image-20200418102904409](/Users/hck/Library/Application Support/typora-user-images/image-20200418102904409.png)</p>
+<p><img src="/https://vanchengkai.github.io/images/image-20200418102904409.png" alt="image-20200418102904409"></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">out_pos = model(&#123;<span class="string">'image'</span>: image_pos, <span class="string">'brand'</span>: brand&#125;)</span><br><span class="line">out_neg = model(&#123;<span class="string">'image'</span>: image_neg, <span class="string">'brand'</span>: brand&#125;)</span><br></pre></td></tr></table></figure>
 
 <p>注意这个模型的输入有两个：</p>
